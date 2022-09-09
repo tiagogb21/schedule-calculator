@@ -18,7 +18,7 @@ Schedule.init(
       primaryKey: true,
       allowNull: false,
     },
-    professional: {
+    createdBy: {
       type: DataTypes.STRING,
       allowNull: false,
     },

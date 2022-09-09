@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      professional: {
+      createdBy: {
         type: Sequelize.STRING,
         allowNull: false,
       },

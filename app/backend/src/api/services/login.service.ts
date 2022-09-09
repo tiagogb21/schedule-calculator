@@ -8,6 +8,7 @@ const incorrectMessage = "Incorrect email or password";
 export default class LoginService {
   private model = UsersModel;
   private jwt = new JWT();
+  private bcrypt = new Bcrypt();
 
   loginSuccess = async (login: IUser) => {
     const { email } = login;
@@ -18,9 +19,15 @@ export default class LoginService {
 
     if (!userInfo) throw new GenericError(401, incorrectMessage);
 
-    const { name } = userInfo;
+    const { name, password } = userInfo;
 
     const token = this.jwt.generateToken(userInfo);
+
+    const verifyPassword = await this.bcrypt.comparePassword(login.password, password);
+
+    if (!verifyPassword) {
+      throw new GenericError(401, 'Incorrect email or password');
+    }
 
     return {
       name,

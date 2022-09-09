@@ -3,12 +3,12 @@ import db from ".";
 
 export default class Client extends Model {
   public id!: number;
-  public clientName!: string;
+  public client!: string;
   public genre!: string;
   public birthday!: string;
   public naturalness!: string;
   public profession!: string;
-  public maritalStatus!: string;
+  public marital!: string;
   public cellphone!: string;
   public email!: string;
 }
@@ -21,7 +21,7 @@ Client.init(
       primaryKey: true,
       allowNull: false,
     },
-    clientName: {
+    client: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -41,7 +41,7 @@ Client.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    maritalStatus: {
+    marital: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      clientName: {
+      client: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      maritalStatus: {
+      marital: {
         type: Sequelize.STRING,
         allowNull: false,
       },

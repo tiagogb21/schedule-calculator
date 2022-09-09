@@ -5,7 +5,7 @@ module.exports = {
       [
         {
           id: 1,
-          professional: 'professional',
+          createdBy: 'secretary',
           client: 'joao',
           value: '100',
           status: 'pendente',

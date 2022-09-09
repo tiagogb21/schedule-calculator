@@ -8,7 +8,17 @@ const controller = new ScheduleController();
 
 routes.get(
   '/',
-  controller.createNewSchedule,
+  controller.getAllSchedule,
+);
+
+routes.get(
+  '/client/:id',
+  controller.getSchedulesByClient,
+);
+
+routes.get(
+  '/date/:id',
+  controller.getScheduleByDate,
 );
 
 routes.post(
@@ -22,7 +32,7 @@ routes.post(
 );
 
 routes.put(
-  '/',
+  '/new-schedule/client/:id',
   ScheduleMiddleware.isValidCreatedBy,
   ScheduleMiddleware.isValidClient,
   ScheduleMiddleware.isValidValue,
@@ -32,7 +42,7 @@ routes.put(
 );
 
 routes.delete(
-  '/',
+  '/delete/:id',
   ScheduleMiddleware.isValidCreatedBy,
   ScheduleMiddleware.isValidClient,
   ScheduleMiddleware.isValidValue,

@@ -4,12 +4,12 @@ module.exports = {
       "clients",
       [
         {
-          clientName: "jose cliente",
+          client: "jose cliente",
           genre: "masculino",
           birthday: "04/08/2016",
           naturalness: "ouro fino",
           profession: "desenvolvedor",
-          maritalStatus: "solteiro",
+          marital: "solteiro",
           cellphone: "(35)99999-9999",
           email: "client@gmail.com",
         },
