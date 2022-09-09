@@ -8,7 +8,7 @@ export default class RegisterController {
   registerSuccess = async (req: Request, res: Response) => {
     try {
       const newUser = await this.service.createNewUser(req.body);
-      return res.status(200).json({ newUser });
+      return res.status(200).json(newUser);
     } catch (error) {
       const getError = error as GenericError;
       return res

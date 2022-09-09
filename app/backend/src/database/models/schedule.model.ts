@@ -7,8 +7,7 @@ export default class Schedule extends Model {
   public client!: string;
   public value!: string;
   public status!: string;
-  public created?: Date;
-  public updated?: Date;
+  public date!: Date;
 }
 
 Schedule.init(
@@ -19,7 +18,7 @@ Schedule.init(
       primaryKey: true,
       allowNull: false,
     },
-    createdBy: {
+    professional: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -35,6 +34,10 @@ Schedule.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    date: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize: db,

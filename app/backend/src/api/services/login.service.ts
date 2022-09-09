@@ -18,9 +18,12 @@ export default class LoginService {
 
     if (!userInfo) throw new GenericError(401, incorrectMessage);
 
+    const { name } = userInfo;
+
     const token = this.jwt.generateToken(userInfo);
 
     return {
+      name,
       token,
     };
   };

@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-      createdBy: {
+      professional: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -23,8 +23,13 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      date: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
     });
   },
+
   down: async (queryInterface) => {
     await queryInterface.dropTable("schedules");
   },

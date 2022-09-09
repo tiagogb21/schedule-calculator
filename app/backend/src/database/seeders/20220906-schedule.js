@@ -5,10 +5,11 @@ module.exports = {
       [
         {
           id: 1,
-          createdBy: "professional",
-          client: "user",
-          value: "100",
-          status: "pendente",
+          professional: 'professional',
+          client: 'joao',
+          value: '100',
+          status: 'pendente',
+          date: new Date(),
         },
       ],
       {}

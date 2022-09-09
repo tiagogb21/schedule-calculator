@@ -22,6 +22,8 @@ export default class RegisterService {
 
     const { password, ...userInfo } = newUser;
 
+    const { name } = userInfo;
+
     const hash = await this.bCrypt.generatePassword(password);
 
     const token = this.jwt.generateToken(userInfo);
@@ -29,7 +31,7 @@ export default class RegisterService {
     await this.model.create({ password: hash, ...userInfo });
 
     return {
-      userInfo,
+      name,
       token,
     };
   };
