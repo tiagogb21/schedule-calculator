@@ -44,13 +44,12 @@ export const Header = () => {
 
   useEffect(() => {
     const getInfoFrom = localStorage.getItem('user');
-    if(getInfoFrom === null) {
+
+    if(getInfoFrom === null && !location.pathname.includes('/register')) {
       navigate('/');
       return;
     };
-    const getUser = JSON.parse(getInfoFrom as string);
-    const { name } = getUser;
-    setUser(name);
+
   }, [navigate]);
 
   return (

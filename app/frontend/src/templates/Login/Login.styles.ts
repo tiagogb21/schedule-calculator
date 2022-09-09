@@ -7,11 +7,11 @@ const loginStyles = {
     justifyContent: 'center',
   },
   cardContainer: {
-    height: '370px',
+    height: '420px',
     borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   cardContainerCell: {
@@ -34,7 +34,14 @@ const loginStyles = {
   },
   link: {
     textDecoration: 'none',
-    color: '#1ea7fd'
+    color: '#1ea7fd',
+  },
+  passBox: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '5px',
   }
 }
 

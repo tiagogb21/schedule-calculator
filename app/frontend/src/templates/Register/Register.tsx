@@ -76,7 +76,7 @@ const Register: React.FC = () => {
       password,
       role: 'client',
     });
-    if(postAxiosInfo?.response?.data) {
+    if(postAxiosInfo?.response?.data && !postAxiosInfo?.response?.data?.message) {
       setUserAlreadyExists(true);
       return;
     }
@@ -100,7 +100,7 @@ const Register: React.FC = () => {
             } }
           >
 
-            <h1 style={{ color: '#1ea7fd' }}>Cadastrar</h1>
+            <h1 style={{ color: '#1ea7fd', fontSize: '35px', margin: 0 }}>Cadastrar</h1>
 
             <TextInput
               id="register-name"

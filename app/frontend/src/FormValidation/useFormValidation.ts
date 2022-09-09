@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 import validateForm, { ErrorInterface } from '.';
 import { ILoginState } from '../interfaces/login.interface';
 import { IRegisterState } from '../interfaces/register.interface';
+import { ITable } from '../interfaces/table.interface';
 
 import { FormName } from './testSchemas';
 
@@ -11,7 +12,11 @@ export type DefaultForm = { [key: string]: unknown };
 const useFormValidation = <Form = DefaultForm>(formName: FormName) => {
   const [errorItems, setErrorItems] = useState<ErrorInterface>();
 
-  const validateError = async (formParams: IRegisterState | ILoginState) => {
+  const validateError = async (formParams:
+    IRegisterState
+    | ILoginState
+    | ITable
+  ) => {
     const errors = await validateForm(formParams, formName);
 
     if(errors) {

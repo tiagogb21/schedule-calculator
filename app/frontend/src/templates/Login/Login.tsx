@@ -18,12 +18,14 @@ import { getAxiosRole, postAxiosInfoData } from '../../services/axios/api';
 const Login: React.FC = (props) => {
   const [loginData, setLoginData] = useState(loginInitialState);
   const [verifyInputType, setVerifyInputType] = useState(true);
+  const [verifyLogin, setVerifyLogin] = useState(false);
 
   const { validateError, handleErrorMessage } = useFormValidation<ILoginState>("register");
 
   const navigate = useNavigate();
 
   const matches = useMediaQuery('(min-width:600px)');
+
   const verifyMediaSize = () => matches ?
     loginStyles.cardContainerDesk
     : loginStyles.cardContainerCell;
@@ -70,7 +72,7 @@ const Login: React.FC = (props) => {
     const { email, password } = loginData;
     const data = { email, password };
     const postAxiosInfo = await postAxiosInfoData(data)
-    if(postAxiosInfo?.message?.includes('401')) return;
+    if(postAxiosInfo?.message?.includes('401')) return setVerifyLogin(true);
     const { token, name } = postAxiosInfo.data;
     const user = { token, name };
     const getAxiosInfo = await getAxiosRole(token)
@@ -109,7 +111,7 @@ const Login: React.FC = (props) => {
             } }
           >
 
-            <h1 style={{ color: '#1ea7fd' }}>Login</h1>
+            <h1 style={{ color: '#1ea7fd', fontSize: '35px', margin: '0' }}>Login</h1>
 
             <TextInput
               id="login-email"
@@ -121,7 +123,7 @@ const Login: React.FC = (props) => {
               { ...handleErrorMessage('email', 'Insira o email') }
             />
 
-          <article style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <article style={ loginStyles.passBox as CSSProperties }>
             <TextInput
               id="outlined-basic"
               label="Senha"
@@ -147,7 +149,7 @@ const Login: React.FC = (props) => {
               primary
               label="Entrar"
               type="submit"
-              style={{ width: '50%', height: '15%' }}
+              style={{ width: '50%', height: '12%' }}
               onClick={ handleClick }
             />
 
@@ -155,6 +157,10 @@ const Login: React.FC = (props) => {
               Não possui conta?
               <Link style={ loginStyles.link } to="/register">Cadastre-se</Link>
             </h3>
+
+            {
+              verifyLogin && <p style={{ color: 'red' }}>Email ou senha inválido.</p>
+            }
           </Form>
         </Formik>
       </section>

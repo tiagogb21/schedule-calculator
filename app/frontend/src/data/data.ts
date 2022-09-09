@@ -1,3 +1,7 @@
+import {
+  GridColDef,
+} from '@mui/x-data-grid';
+
 export const loginInitialState = {
   email: '',
   password: '',
@@ -22,7 +26,7 @@ export const mainTopScheduleInitialState = {
 }
 
 export const clientRegisterInitialState = {
-  name: '',
+  client: '',
   address: '',
   district: '',
   city: '',
@@ -135,3 +139,34 @@ export const calculatorButtons = [
     },
   ],
 ];
+
+export const dummyMenuItems = [
+  {
+    title: "Adicionar Registro"
+  },
+  {
+    title: "Atualizar Registro"
+  },
+  {
+    title: "Deletar Registro"
+  }
+];
+
+export const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID', width: 60 },
+  { field: 'createdBy', headerName: 'CRIADO POR', width: 170 },
+  { field: 'patient', headerName: 'PACIENTE', width: 150 },
+  { field: 'value', headerName: 'VALOR', width: 130 },
+  { field: 'status', headerName: 'STATUS', width: 150 },
+  { field: 'date', headerName: 'DATE', width: 150 },
+];
+
+export const formatedDate = () => {
+  const date = new Date(),
+      day = date.getDate().toString(),
+      dayF = (day.length === 1) ? '0' + day : day,
+      month  = (date.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      monthF = (month.length === 1) ? '0' + month : month,
+      yearF = date.getFullYear();
+  return `${ dayF } / ${ monthF } / ${ yearF }`;
+}

@@ -1,8 +1,8 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import { Formik, Form } from "formik";
-import { mainTopScheduleInitialState } from '../../data/data';
+import { formatedDate, mainTopScheduleInitialState } from '../../data/data';
 import useFormValidation from '../../FormValidation/useFormValidation';
 import { IMainTopSchedule } from '../../interfaces/mainTopSchedule.interface';
 import { Button } from '../../stories/Button/Button';
@@ -10,24 +10,35 @@ import TextInput from '../../stories/TextInput/TextInput';
 import mainTopScheduleStyles from './MainTopSchedule.styles';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { insertDataInSchedule } from '../../redux/reducers/tableReducers';
+import { useNavigate } from 'react-router-dom';
+import { getAxiosClient } from '../../services/axios/api';
+import IClientRegister from '../../interfaces/clientregister.interface';
 
 const MainTopSchedule: React.FC = () => {
   const [mainTopScheduleData, setMainTopScheduleData] = useState(mainTopScheduleInitialState);
+  const [clientsData, setClientsData] = useState([]);
 
   const { validateError, handleErrorMessage } = useFormValidation<IMainTopSchedule>("register");
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const { schedules } = useAppSelector((state) => state.table);
+
+  const dispatch = useAppDispatch();
 
   const matches = useMediaQuery('(min-width:600px)');
+
   const verifyMediaSize = () => !matches ?
     mainTopScheduleStyles.cardContainerDesk
     : mainTopScheduleStyles.cardContainerCell;
+
   const verifyMediaSizeInputBox = () => !matches ?
     { ...mainTopScheduleStyles.boxInput, ...mainTopScheduleStyles.boxInputCell }
     : { ...mainTopScheduleStyles.boxInput, ...mainTopScheduleStyles.boxInputDesk };
+
   const verifyMediaSizeTitleBox = () => !matches ?
-  { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleCell }
-  : { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleDesk };
+    { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleCell }
+    : { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleDesk };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,24 +48,34 @@ const MainTopSchedule: React.FC = () => {
     });
   }
 
-  const { schedules } = useAppSelector((state) => state.table);
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const getClients = async () => {
+      const getAxiosInfo = await getAxiosClient();
+      console.log(getAxiosInfo.data);
+      const clientsName = getAxiosInfo.data.map((data: IClientRegister) => {
+        return data.client;
+      });
+      console.log(clientsName)
+      setClientsData(clientsName);
+    };
+    getClients();
+  }, []);
+
+  console.log(clientsData)
 
   const handleClick = async () => {
     // const result = await validateError(mainTopScheduleData);
-    // if(result) {
-    //   console.log('faz o tratamento de registro');
-    // }
     const getUserFromLocalStorage = localStorage.getItem('user');
     if(!getUserFromLocalStorage) return;
     const getUser = JSON.parse(getUserFromLocalStorage);
-    const { user } = getUser as any;
+    const { name } = getUser;
     const data = {
       id: schedules.length,
-      createdBy: user,
-      client: user,
+      createdBy: name,
+      patient: mainTopScheduleData.pacient,
       value: mainTopScheduleData.value,
       status: mainTopScheduleData.status,
+      date: formatedDate(),
     }
     dispatch(insertDataInSchedule(data))
   }
@@ -86,7 +107,7 @@ const MainTopSchedule: React.FC = () => {
             </article>
             <article style={ verifyMediaSizeInputBox() as CSSProperties }>
               <TextInput
-                id="miantopschedule-pacient-name"
+                id="maintopschedule-pacient-name"
                 label="Nome do Paciente"
                 name="pacient"
                 value={ mainTopScheduleData.pacient }
@@ -96,7 +117,7 @@ const MainTopSchedule: React.FC = () => {
               />
 
               <TextInput
-                id="miantopschedule-value"
+                id="maintopschedule-value"
                 label="Valor"
                 name="value"
                 value={ mainTopScheduleData.value }

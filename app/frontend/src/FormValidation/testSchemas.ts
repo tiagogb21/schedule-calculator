@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import { ILoginState } from '../interfaces/login.interface';
 import { IRegisterState } from '../interfaces/register.interface';
+import { ITable } from '../interfaces/table.interface';
 
 import register from './schemas/register.schema';
 
@@ -10,7 +11,7 @@ const listSchemas = {
 
 export type FormName = keyof typeof listSchemas;
 
-export type FormValues = IRegisterState | ILoginState;
+export type FormValues = IRegisterState | ILoginState | ITable;
 
 const testSchema = async (
   schema: FormName,

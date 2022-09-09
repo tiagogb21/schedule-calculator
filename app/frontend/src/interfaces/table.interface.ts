@@ -1,7 +1,7 @@
 export interface ITable {
   id: number | string;
   createdBy: string;
-  client: string;
+  patient: string;
   value: string;
   status: string;
 }

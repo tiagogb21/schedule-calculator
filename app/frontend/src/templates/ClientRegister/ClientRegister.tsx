@@ -80,13 +80,13 @@ const ClientRegister: React.FC = () => {
         style={ clientRegisterStyles.container as CSSProperties }
       >
         <TextInput
-          id="client-register-name"
+          id="client-register-client"
           label="Nome"
-          name="name"
-          value={ clientRegister.name }
+          name="client"
+          value={ clientRegister.client }
           onChange={ handleChange }
           style={ verifyMediaSize() }
-          { ...handleErrorMessage('name') }
+          { ...handleErrorMessage('client') }
         />
 
         <TextInput

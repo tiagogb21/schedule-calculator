@@ -5,6 +5,11 @@ interface IData {
   password: string;
 }
 
+interface IDataClient {
+  email: string;
+  password: string;
+}
+
 interface IDataRegister {
   name: string;
   email: string;
@@ -14,9 +19,17 @@ interface IDataRegister {
 
 const URL_LOGIN = 'http://localhost:3001/login';
 const URL_REGISTER = 'http://localhost:3001/register';
+const URL_SCHEDULE = 'http://localhost:3001/register';
+const URL_CLIENT = 'http://localhost:3001/client';
 
 export const postAxiosInfoData = async (data: IData) => await axios.post(
   URL_LOGIN,
+  data,
+).then((res: any) => res)
+.catch((err: any) => err);
+
+export const postAxiosInfoDataTable = async (data: IDataClient) => await axios.post(
+  URL_SCHEDULE,
   data,
 ).then((res: any) => res)
 .catch((err: any) => err);
@@ -28,6 +41,11 @@ export const getAxiosRole = async (token: string) => await axios.get(
       'Authorization': `${token}` 
     }
   },
+).then((res: any) => res)
+.catch((err: any) => err);
+
+export const getAxiosClient = async () => await axios.get(
+  URL_CLIENT
 ).then((res: any) => res)
 .catch((err: any) => err);
 

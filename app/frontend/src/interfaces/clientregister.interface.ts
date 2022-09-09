@@ -1,5 +1,5 @@
 export default interface IClientRegister {
-  name: string;
+  client: string;
   address: string;
   district: string;
   city: string;
