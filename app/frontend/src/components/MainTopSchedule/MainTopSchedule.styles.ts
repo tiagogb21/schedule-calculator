@@ -20,10 +20,16 @@ const mainTopScheduleStyles = {
     width: '90%',
   },
   boxTitle: {
-    width: '95%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: '15px',
+  },
+  boxTitleCell: {
+    width: '125%',
+  },
+  boxTitleDesk: {
+    width: '95%',
   },
   form: {
     width: '300px',
@@ -37,7 +43,7 @@ const mainTopScheduleStyles = {
     alignItems: 'center',
   },
   boxInputCell: {
-    width: '115%',
+    width: '150%',
     height: '270px',
   },
   boxInputDesk: {
@@ -60,10 +66,24 @@ const mainTopScheduleStyles = {
   buttonCell: {
     width: '40%',
     height: '50px',
+    marginBottom: '15px',
+    border: '2px solid #1ea7fd',
   },
   buttonDesk: {
-    width: '30%',
+    width: '40%',
     height: '70%',
+    border: '2px solid #1ea7fd',
+  },
+  buttonCellConc: {
+    width: '40%',
+    height: '50px',
+    marginBottom: '15px',
+    border: '2px solid #1ea7fd',
+  },
+  buttonDeskConc: {
+    width: '20%',
+    height: '50%',
+    border: '2px solid #1ea7fd',
   },
 }
 

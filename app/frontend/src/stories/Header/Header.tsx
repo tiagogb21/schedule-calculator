@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 
 import { Button } from '../Button/Button';
@@ -8,32 +8,30 @@ import logoSmile from '../../stories/assets/logo-dentist.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAppDispatch } from '../../redux/store/hooks';
 import { toggleAside } from '../../redux/reducers/asideReducers';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type User = {
   name: string;
 };
 
-interface HeaderProps {
-  user?: User;
-  onLogin: () => void;
-  onLogout: () => void;
-  onCreateAccount: () => void;
-}
-
-export const Header = ({
-  user,
-  onLogout,
-}: HeaderProps) => {
+export const Header = () => {
   const [verifyClickButton, setVerifyClickButton] = useState(true);
+  const [user, setUser] = useState('');
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
     dispatch(toggleAside(verifyClickButton));
     setVerifyClickButton(!verifyClickButton);
+  }
+
+  const onLogout = () => {
+    localStorage.clear();
+    document.location.reload();
   }
 
   const onLogin = () => {
@@ -43,6 +41,17 @@ export const Header = ({
   const onCreateAccount = () => {
     navigate('/register');
   }
+
+  useEffect(() => {
+    const getInfoFrom = localStorage.getItem('user');
+    if(getInfoFrom === null) {
+      navigate('/');
+      return;
+    };
+    const getUser = JSON.parse(getInfoFrom as string);
+    const { name } = getUser;
+    setUser(name);
+  }, [navigate]);
 
   return (
     <header>
@@ -55,25 +64,30 @@ export const Header = ({
               le
             </span>
           </h1>
-            <IconButton
-              onClick={ handleClick }
-            >
-              <MenuIcon />
-            </IconButton>
+          {
+            location.pathname.includes('/home') && (
+              <IconButton
+                onClick={ handleClick }
+              >
+                <MenuIcon />
+              </IconButton>
+            )
+          }
         </article>
-        <article>
-          {user ? (
-            <>
-              <span className="welcome">
-                Bem-vindo, <b>{user.name}</b>!
-              </span>
-              <Button size="small" onClick={onLogout} label="Log out" />
-            </>
-          ) : (
-            <>
-              <Button size="small" onClick={ onLogin } label="Log in" />
-              <Button primary size="small" onClick={ onCreateAccount } label="Cadastrar" />
-            </>
+        <article style={{display: 'flex', alignItems:'center'}}>
+          {
+           user?.length > 0 ? (
+              <>
+                <span className="welcome" style={{ textAlign:'center' }}>
+                  Bem-vindo, <b>{ user.split(' ')[0] }</b>!
+                </span>
+                <Button size="small" onClick={onLogout} label="Sair" />
+              </>
+            ) : (
+              <>
+                <Button size="small" onClick={ onLogin } label="Entrar" />
+                <Button primary size="small" onClick={ onCreateAccount } label="Cadastrar" />
+              </>
           )}
         </article>
       </section>

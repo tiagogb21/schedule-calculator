@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, useEffect } from 'react';
 // import { useForm } from "react-hook-form";
 import { Formik, Form } from "formik";
 
@@ -20,6 +20,7 @@ import { postAxiosInfoDataRegister } from '../../services/axios/api';
 const Register: React.FC = () => {
   const [registerData, setRegisterData] = useState(registerInitialState);
   const [verifyInputType, setVerifyInputType] = useState(true);
+  const [userAlreadyExists, setUserAlreadyExists] = useState(false)
 
   const { validateError, handleErrorMessage } = useFormValidation<IRegisterState>("register");
 
@@ -27,6 +28,10 @@ const Register: React.FC = () => {
 
   const matches = useMediaQuery('(min-width:600px)');
   const verifyMediaSize = () => matches ? registerStyles.cardContainerDesk : registerStyles.cardContainerCell;
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
 
   const handleRegister = (formValue: IRegisterState) => {
     const { email, password } = formValue;
@@ -65,13 +70,18 @@ const Register: React.FC = () => {
   const handleClick = async () => {
     await validateError(registerData);
     const { name, email, password } = registerData;
-    const a = await postAxiosInfoDataRegister({
+    const postAxiosInfo = await postAxiosInfoDataRegister({
       name,
       email,
       password,
       role: 'client',
     });
-    console.log(a);
+    if(postAxiosInfo?.response?.data) {
+      setUserAlreadyExists(true);
+      return;
+    }
+    if(postAxiosInfo?.message?.includes('401')) return;
+    navigate('/client');
   }
 
   return (
@@ -143,16 +153,14 @@ const Register: React.FC = () => {
               style={{ width: '50%', height: '12%' }}
               onClick={ handleClick }
             />
-
+            
             {
-              registerData.message && (
-                <div className="form-group">
-                  <div className="alert alert-danger" role="alert">
-                    { registerData.message }
-                  </div>
-                </div>
+              userAlreadyExists
+              && (
+                <p style={{ color: 'red' }}>Usuário já existente</p>
               )
             }
+
             <h3 style={ registerStyles.message }>
               Já possui conta?
               <Link style={ registerStyles.link } to="/">Fazer login</Link>

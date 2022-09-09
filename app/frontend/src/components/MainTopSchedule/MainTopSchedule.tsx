@@ -25,6 +25,9 @@ const MainTopSchedule: React.FC = () => {
   const verifyMediaSizeInputBox = () => !matches ?
     { ...mainTopScheduleStyles.boxInput, ...mainTopScheduleStyles.boxInputCell }
     : { ...mainTopScheduleStyles.boxInput, ...mainTopScheduleStyles.boxInputDesk };
+  const verifyMediaSizeTitleBox = () => !matches ?
+  { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleCell }
+  : { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleDesk };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -67,7 +70,7 @@ const MainTopSchedule: React.FC = () => {
               ...verifyMediaSize() as CSSProperties,
             } }
           >
-            <article style={ mainTopScheduleStyles.boxTitle }>
+            <article style={ verifyMediaSizeTitleBox() }>
               <h3 style={{ color: '#1ea7fd', fontSize: '25px' }}>Atendimento</h3>
 
               <Button
@@ -75,8 +78,8 @@ const MainTopSchedule: React.FC = () => {
                 label="CONCLUIR"
                 type="submit"
                 style={ !matches ?
-                  mainTopScheduleStyles.buttonCell
-                  : mainTopScheduleStyles.buttonDesk
+                  mainTopScheduleStyles.buttonCellConc
+                  : mainTopScheduleStyles.buttonDeskConc
                 }
                 onClick={ handleClick }
               />
@@ -113,8 +116,7 @@ const MainTopSchedule: React.FC = () => {
               />
 
               <Button
-                primary
-                label="ADD"
+                label="adicionar"
                 type="submit"
                 style={ !matches ?
                   mainTopScheduleStyles.buttonCell

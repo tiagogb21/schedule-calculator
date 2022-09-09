@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Formik, Form } from "formik";
 
 import { Button } from '../../stories/Button/Button';
@@ -27,6 +27,10 @@ const Login: React.FC = (props) => {
   const verifyMediaSize = () => matches ?
     loginStyles.cardContainerDesk
     : loginStyles.cardContainerCell;
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
 
   const handleLogin = (formValue: ILoginState) => {
     const { email, password } = formValue;
@@ -67,10 +71,11 @@ const Login: React.FC = (props) => {
     const data = { email, password };
     const postAxiosInfo = await postAxiosInfoData(data)
     if(postAxiosInfo?.message?.includes('401')) return;
-    const { token } = postAxiosInfo.data;
+    const { token, name } = postAxiosInfo.data;
+    const user = { token, name };
     const getAxiosInfo = await getAxiosRole(token)
     const { role } = getAxiosInfo.data;
-    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('role', role);
     switch(role) {
       case 'admin':
@@ -146,15 +151,6 @@ const Login: React.FC = (props) => {
               onClick={ handleClick }
             />
 
-            {
-              loginData.message && (
-                <div className="form-group">
-                  <div className="alert alert-danger" role="alert">
-                    { loginData.message }
-                  </div>
-                </div>
-              )
-            }
             <h3 style={ loginStyles.message }>
               Não possui conta?
               <Link style={ loginStyles.link } to="/register">Cadastre-se</Link>

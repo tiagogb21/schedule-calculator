@@ -1,5 +1,4 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 
 import { Header } from './Header';
 
@@ -11,15 +10,3 @@ export default {
     layout: 'fullscreen',
   },
 } as ComponentMeta<typeof Header>;
-
-const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
-
-export const LoggedIn = Template.bind({});
-LoggedIn.args = {
-  user: {
-    name: 'Jane Doe',
-  },
-};
-
-export const LoggedOut = Template.bind({});
-LoggedOut.args = {};
