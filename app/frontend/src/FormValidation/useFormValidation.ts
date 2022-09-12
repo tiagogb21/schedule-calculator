@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 
 import validateForm, { ErrorInterface } from '.';
+import IClientRegister from '../interfaces/clientregister.interface';
 import { ILoginState } from '../interfaces/login.interface';
 import { IRegisterState } from '../interfaces/register.interface';
 import { ITable } from '../interfaces/table.interface';
@@ -16,6 +17,7 @@ const useFormValidation = <Form = DefaultForm>(formName: FormName) => {
     IRegisterState
     | ILoginState
     | ITable
+    | IClientRegister
   ) => {
     const errors = await validateForm(formParams, formName);
 

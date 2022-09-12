@@ -1,6 +1,6 @@
 export interface IMainTopSchedule {
   user: string;
-  pacient: string;
+  client: string;
   status: string;
   data: string;
   value: string;

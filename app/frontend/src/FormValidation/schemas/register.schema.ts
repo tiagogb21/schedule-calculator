@@ -11,6 +11,32 @@ const registerSchema = yup.object().shape({
   password: yup
     .string()
     .required("Campo obrigatório!"),
+  client: yup
+    .string()
+    .required("Campo obrigatório!"),
+  value: yup
+    .number()
+    .typeError("Especifique um número!")
+    .min(0, "Apenas valores positivos!")
+    .required("Campo obrigatório!"),
+  status: yup
+    .string()
+    .required("Campo obrigatório!"),
+  address: yup
+    .string()
+    .required("Campo obrigatório!"),
+  district: yup
+    .string()
+    .required("Campo obrigatório!"),
+  city: yup
+    .string()
+    .required("Campo obrigatório!"),
+  state: yup
+    .string()
+    .required("Campo obrigatório!"),
+  phone: yup
+    .string()
+    .required("Campo obrigatório!"),
 });
 
 /*

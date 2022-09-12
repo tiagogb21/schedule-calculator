@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const tableSchema = yup.object().shape({
-  patient: yup
+  client: yup
     .string()
     .required("Campo obrigatório!"),
   value: yup

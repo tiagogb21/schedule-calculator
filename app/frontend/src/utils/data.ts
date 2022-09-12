@@ -1,7 +1,8 @@
 export const scheduleData = {
   id: 0,
   createdBy: '',
-  patient: '',
-  value: '',
+  client: '',
   status: '',
+  value: '',
+  date: '',
 };

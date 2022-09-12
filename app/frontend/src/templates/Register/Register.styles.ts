@@ -7,7 +7,7 @@ const registerStyles = {
     justifyContent: 'center',
   },
   cardContainer: {
-    height: '420px',
+    height: '380px',
     borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
@@ -18,7 +18,7 @@ const registerStyles = {
     width: '300px',
   },
   cardContainerDesk: {
-    width: '450px',
+    width: '300px',
     border: '1px solid #1ea7fd',
     padding: '15px 0',
   },

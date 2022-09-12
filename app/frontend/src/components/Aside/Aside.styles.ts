@@ -11,7 +11,7 @@ export const asideStyles = {
     width: '100%',
   },
   cardContainerCell: {
-    width: '200px',
+    width: '120px',
     height: '100%',
   },
 }

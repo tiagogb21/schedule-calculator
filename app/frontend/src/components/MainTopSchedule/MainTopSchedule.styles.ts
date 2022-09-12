@@ -13,7 +13,7 @@ const mainTopScheduleStyles = {
   },
   cardContainerCell: {
     width: '115%',
-    height: '200px',
+    height: '215px',
     padding: '15px 30px',
   },
   cardContainerDesk: {
@@ -29,7 +29,7 @@ const mainTopScheduleStyles = {
     width: '125%',
   },
   boxTitleDesk: {
-    width: '95%',
+    width: '102%',
   },
   form: {
     width: '300px',
@@ -44,10 +44,11 @@ const mainTopScheduleStyles = {
   },
   boxInputCell: {
     width: '150%',
-    height: '270px',
+    height: '215px',
+    marginBottom: '15px',
   },
   boxInputDesk: {
-    width: '95%',
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     gap: '20px',
@@ -66,7 +67,6 @@ const mainTopScheduleStyles = {
   buttonCell: {
     width: '40%',
     height: '50px',
-    marginBottom: '15px',
     border: '2px solid #1ea7fd',
   },
   buttonDesk: {
@@ -85,6 +85,22 @@ const mainTopScheduleStyles = {
     height: '50%',
     border: '2px solid #1ea7fd',
   },
+  boxArticle: {
+    width: '95%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  boxArticleCell: {
+    height: '18vh',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  boxArticleDesk: {
+    height: '30px',
+    alignItems: 'center',
+    gap: '20px',
+  }
 }
 
 export default mainTopScheduleStyles;

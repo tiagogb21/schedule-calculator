@@ -1,7 +1,8 @@
 import React, { CSSProperties } from 'react';
-import { TextField, FormHelperText } from "@mui/material";
+import { TextField, FormHelperText, useMediaQuery } from "@mui/material";
+import textInputStyles from './TextInput.styes';
 
-interface Props {
+interface IProps {
   id?: string;
   value: string;
   onChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
@@ -13,7 +14,7 @@ interface Props {
   style?: CSSProperties;
 }
 
-const TextInput = (props: Props) => {
+const TextInput = (props: IProps) => {
   const {
     id,
     type = "text",
@@ -25,8 +26,15 @@ const TextInput = (props: Props) => {
     helperText,
     error,
   } = props;
+
+  const matches = useMediaQuery('(min-width:600px)');
+
+  const verifyMediaSizeInputBox = () => !matches ?
+    { ...textInputStyles.boxTextInput, ...textInputStyles.boxTextInputCell }
+    : { ...textInputStyles.boxTextInput, ...textInputStyles.boxTextInputDesk };
+
   return (
-    <>
+    <article style={ textInputStyles.boxTextInput as CSSProperties }>
       <TextField
         id={ id }
         type={ type }
@@ -34,12 +42,17 @@ const TextInput = (props: Props) => {
         name={ name }
         value={ value }
         onChange={ onChange }
-        style={ style }
+        style={ { ...style, padding: 0 } }
         error={ error }
         variant="outlined"
       />
-      <FormHelperText error={error}>{helperText}</FormHelperText>
-    </>
+      <FormHelperText
+        style={ !matches ? {...textInputStyles.errorMessageCell  as CSSProperties } : {} }
+        error={error}
+      >
+        {helperText}
+      </FormHelperText>
+    </article>
   )
 }
 

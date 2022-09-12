@@ -31,33 +31,7 @@ const Register: React.FC = () => {
 
   useEffect(() => {
     localStorage.clear();
-  }, [])
-
-  const handleRegister = (formValue: IRegisterState) => {
-    const { email, password } = formValue;
-
-    AuthService.login(email, password).then(
-      () => {
-        navigate("/profile");
-        window.location.reload();
-      },
-      error => {
-        const resMessage =
-          (
-            error.response
-            && error.response.data
-            && error.response.data.message
-          )
-            || error.message
-            || error.toString();
-          setRegisterData({
-            ...formValue,
-            loading: false,
-            message: resMessage
-          });
-      }
-    );
-  }
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -76,11 +50,14 @@ const Register: React.FC = () => {
       password,
       role: 'client',
     });
-    if(postAxiosInfo?.response?.data && !postAxiosInfo?.response?.data?.message) {
+    if(postAxiosInfo?.message?.includes('401')) {
       setUserAlreadyExists(true);
       return;
     }
-    if(postAxiosInfo?.message?.includes('401')) return;
+    if(postAxiosInfo?.message?.includes('401')
+      || postAxiosInfo?.message?.includes('400')
+    ) return;
+    localStorage.setItem('user', JSON.stringify(postAxiosInfo.data));
     navigate('/client');
   }
 
@@ -90,8 +67,7 @@ const Register: React.FC = () => {
       <Formik
           initialValues={ registerInitialState }
           onSubmit={async (values, { resetForm }) => {
-            await handleRegister(values);
-            resetForm();
+            // resetForm();
           }}
         >
           <Form style={ {
@@ -100,7 +76,7 @@ const Register: React.FC = () => {
             } }
           >
 
-            <h1 style={{ color: '#1ea7fd', fontSize: '35px', margin: 0 }}>Cadastrar</h1>
+            <h1 style={{ color: '#1ea7fd', fontSize: '30px', margin: 0 }}>Cadastrar</h1>
 
             <TextInput
               id="register-name"
@@ -108,7 +84,7 @@ const Register: React.FC = () => {
               name="name"
               value={ registerData.name }
               onChange={ handleChange }
-              style={{ width: '80%' }}
+              style={{ width: '100%' }}
               { ...handleErrorMessage('name') }
             />
 
@@ -119,7 +95,7 @@ const Register: React.FC = () => {
               name="email"
               value={ registerData.email }
               onChange={ handleChange }
-              style={{ width: '80%' }}
+              style={{ width: '100%' }}
               { ...handleErrorMessage('email', 'Insira o email') }
             />
 
@@ -132,7 +108,7 @@ const Register: React.FC = () => {
               name="password"
               value={ registerData.password }
               onChange={ handleChange }
-              style={{ width: '80%' }}
+              style={{ width: '100%' }}
               { ...handleErrorMessage('password') }
             />
 
@@ -153,7 +129,7 @@ const Register: React.FC = () => {
               style={{ width: '50%', height: '12%' }}
               onClick={ handleClick }
             />
-            
+
             {
               userAlreadyExists
               && (

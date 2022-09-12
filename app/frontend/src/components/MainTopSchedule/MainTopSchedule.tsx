@@ -11,8 +11,9 @@ import mainTopScheduleStyles from './MainTopSchedule.styles';
 import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
 import { insertDataInSchedule } from '../../redux/reducers/tableReducers';
 import { useNavigate } from 'react-router-dom';
-import { getAxiosClient } from '../../services/axios/api';
+import { getAxiosClient, postAxiosInfoDataTable } from '../../services/axios/api';
 import IClientRegister from '../../interfaces/clientregister.interface';
+import SelectOption from '../../stories/SelectOption/SelectOption';
 
 const MainTopSchedule: React.FC = () => {
   const [mainTopScheduleData, setMainTopScheduleData] = useState(mainTopScheduleInitialState);
@@ -40,6 +41,10 @@ const MainTopSchedule: React.FC = () => {
     { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleCell }
     : { ...mainTopScheduleStyles.boxTitle, ...mainTopScheduleStyles.boxTitleDesk };
 
+  const verifyMediaSizeBoxArticle = () => !matches ?
+    { ...mainTopScheduleStyles.boxArticle, ...mainTopScheduleStyles.boxArticleCell }
+    : { ...mainTopScheduleStyles.boxArticle, ...mainTopScheduleStyles.boxArticleDesk };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setMainTopScheduleData({
@@ -51,34 +56,33 @@ const MainTopSchedule: React.FC = () => {
   useEffect(() => {
     const getClients = async () => {
       const getAxiosInfo = await getAxiosClient();
-      console.log(getAxiosInfo.data);
       const clientsName = getAxiosInfo.data.map((data: IClientRegister) => {
         return data.client;
       });
-      console.log(clientsName)
       setClientsData(clientsName);
     };
     getClients();
   }, []);
 
-  console.log(clientsData)
-
   const handleClick = async () => {
-    // const result = await validateError(mainTopScheduleData);
+    await validateError(mainTopScheduleData);
     const getUserFromLocalStorage = localStorage.getItem('user');
     if(!getUserFromLocalStorage) return;
     const getUser = JSON.parse(getUserFromLocalStorage);
     const { name } = getUser;
     const data = {
-      id: schedules.length,
       createdBy: name,
-      patient: mainTopScheduleData.pacient,
+      client: mainTopScheduleData.client,
       value: mainTopScheduleData.value,
       status: mainTopScheduleData.status,
       date: formatedDate(),
     }
-    dispatch(insertDataInSchedule(data))
+    const t = await postAxiosInfoDataTable(data);
+    if(t.message) return;
+    dispatch(insertDataInSchedule({ id: schedules.length, ...data }))
   }
+
+  // console.log(handleErrorMessage('status'))
 
   return (
     <section style={{ display: 'flex', justifyContent:'center' }}>
@@ -106,27 +110,30 @@ const MainTopSchedule: React.FC = () => {
               />
             </article>
             <article style={ verifyMediaSizeInputBox() as CSSProperties }>
+              <article style={ verifyMediaSizeBoxArticle() as CSSProperties }>
               <TextInput
                 id="maintopschedule-pacient-name"
                 label="Nome do Paciente"
-                name="pacient"
-                value={ mainTopScheduleData.pacient }
+                name="client"
+                value={ mainTopScheduleData.client }
                 onChange={ handleChange }
-                style={{ width: '80%' }}
-                { ...handleErrorMessage('pacient') }
+                style={{ width: '100%' }}
+                { ...handleErrorMessage('client') }
               />
 
               <TextInput
                 id="maintopschedule-value"
                 label="Valor"
                 name="value"
+                type="number"
                 value={ mainTopScheduleData.value }
                 onChange={ handleChange }
-                style={{ width: '80%' }}
+                style={{ width: '100%' }}
                 { ...handleErrorMessage('value') }
               />
+              </article>
 
-              <TextInput
+              {/* <TextInput
                 id="maintopschedule-status"
                 label="Status"
                 name="status"
@@ -134,17 +141,30 @@ const MainTopSchedule: React.FC = () => {
                 onChange={ handleChange }
                 style={{ width: '80%' }}
                 { ...handleErrorMessage('status') }
-              />
+              /> */}
+              <article style={{
+                width: '70%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+                <SelectOption
+                  label="status"
+                  options={[ 'pendente', 'concluido' ]}
+                  style={{ width: '100%' }}
+                  { ...handleErrorMessage('status') }
+                />
 
-              <Button
-                label="adicionar"
-                type="submit"
-                style={ !matches ?
-                  mainTopScheduleStyles.buttonCell
-                  : mainTopScheduleStyles.buttonDesk
-                }
-                onClick={ handleClick }
-              />
+                <Button
+                  label="adicionar"
+                  type="submit"
+                  style={ !matches ?
+                    mainTopScheduleStyles.buttonCell
+                    : mainTopScheduleStyles.buttonDesk
+                  }
+                  onClick={ handleClick }
+                />
+              </article>
             </article>
           </Form>
         </Formik>

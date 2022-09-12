@@ -7,7 +7,7 @@ const loginStyles = {
     justifyContent: 'center',
   },
   cardContainer: {
-    height: '420px',
+    height: '350px',
     borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
@@ -18,7 +18,7 @@ const loginStyles = {
     width: '300px',
   },
   cardContainerDesk: {
-    width: '450px',
+    width: '300px',
     border: '1px solid #1ea7fd',
     padding: '25px 0',
   },

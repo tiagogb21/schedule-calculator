@@ -1,9 +1,10 @@
 export interface ITable {
-  id: number | string;
-  createdBy: string;
-  patient: string;
-  value: string;
-  status: string;
+  id?: number | string;
+  createdBy?: string;
+  client?: string;
+  status?: string;
+  value?: string;
+  date?: string;
 }
 
 export type TableState = {

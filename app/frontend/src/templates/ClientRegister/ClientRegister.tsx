@@ -20,10 +20,14 @@ const ClientRegister: React.FC = () => {
   const verifyMediaSize = () => !matches ?
     clientRegisterStyles.inputCell
     : clientRegisterStyles.inputDesk;
-  
+
   const verifyMediaSizeButton = () => !matches ?
     clientRegisterStyles.buttonBoxCell
     : clientRegisterStyles.buttonBoxDesk;
+
+  const verifySectionInput = () => !matches ?
+    clientRegisterStyles.boxInputCell
+    : clientRegisterStyles.boxInputDesk;
 
   const navigate = useNavigate();
 
@@ -61,11 +65,11 @@ const ClientRegister: React.FC = () => {
   }
 
   const handleClick = async () => {
-    // await validateError(clientRegister);
+    await validateError(clientRegister);
   }
 
   const handleClickUpdate = async () => {
-    
+
   }
 
   return (
@@ -79,91 +83,95 @@ const ClientRegister: React.FC = () => {
       <Form
         style={ clientRegisterStyles.container as CSSProperties }
       >
-        <TextInput
-          id="client-register-client"
-          label="Nome"
-          name="client"
-          value={ clientRegister.client }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('client') }
-        />
-
-        <TextInput
-          id="client-register-address"
-          label="Endereço"
-          name="address"
-          value={ clientRegister.address }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('address') }
-        />
-
-        <TextInput
-          id="client-register-district"
-          label="Bairro"
-          name="district"
-          value={ clientRegister.district }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('district') }
-        />
-
-        <TextInput
-          id="client-register-city"
-          label="Cidade"
-          name="city"
-          value={ clientRegister.city }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('city') }
-        />
-
-        <TextInput
-          id="client-register-state"
-          label="Estado"
-          name="state"
-          value={ clientRegister.state }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('state') }
-        />
-
-        <TextInput
-          id="client-register-phone"
-          label="Celular ou Telefone"
-          name="phone"
-          value={ clientRegister.phone }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('phone') }
-        />
-
-        <TextInput
-          id="client-register-email"
-          label="Email"
-          name="email"
-          value={ clientRegister.email }
-          onChange={ handleChange }
-          style={ verifyMediaSize() }
-          { ...handleErrorMessage('email') }
-        />
-
-        <article style={ verifyMediaSizeButton() }>
-          <Button
-            label="Adicionar"
-            type="submit"
-            style={{ width: '50%', height: '15%', border: '2px solid #1ea7fd' }}
-            onClick={ handleClick }
+        <h1 style={{ color: '#1ea7fd' }}>Cadastro de Clientes</h1>
+        <section
+          style={ verifySectionInput() as CSSProperties }
+        >
+          <TextInput
+            id="client-register-client"
+            label="Nome"
+            name="client"
+            value={ clientRegister.client }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('client') }
           />
-          <Button
-            primary
-            label="Atualizar"
-            type="button"
-            style={{ width: '50%', height: '15%' }}
-            onClick={ handleClickUpdate }
+
+          <TextInput
+            id="client-register-address"
+            label="Endereço"
+            name="address"
+            value={ clientRegister.address }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('address') }
           />
-        </article>
+
+          <TextInput
+            id="client-register-district"
+            label="Bairro"
+            name="district"
+            value={ clientRegister.district }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('district') }
+          />
+
+          <TextInput
+            id="client-register-city"
+            label="Cidade"
+            name="city"
+            value={ clientRegister.city }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('city') }
+          />
+
+          <TextInput
+            id="client-register-state"
+            label="Estado"
+            name="state"
+            value={ clientRegister.state }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('state') }
+          />
+
+          <TextInput
+            id="client-register-phone"
+            label="Celular ou Telefone"
+            name="phone"
+            value={ clientRegister.phone }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('phone') }
+          />
+
+          <TextInput
+            id="client-register-email"
+            label="Email"
+            name="email"
+            value={ clientRegister.email }
+            onChange={ handleChange }
+            style={ verifyMediaSize() }
+            { ...handleErrorMessage('email') }
+          />
+          </section>
+          <article style={ verifyMediaSizeButton() }>
+            <Button
+              label="Adicionar"
+              type="submit"
+              style={{ width: '50%', height: '15%', border: '2px solid #1ea7fd' }}
+              onClick={ handleClick }
+            />
+            <Button
+              primary
+              label="Atualizar"
+              type="button"
+              style={{ width: '50%', height: '15%' }}
+              onClick={ handleClickUpdate }
+            />
+          </article>
       </Form>
     </Formik>
   );

@@ -1,21 +1,33 @@
 const clientRegisterStyles = {
   container: {
-    padding: '50px',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  boxInputCell: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '93vw',
+  },
+  boxInputDesk: {
+    padding: '10px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 33%)',
+    alignItems: 'center',
+    width: '93vw',
   },
   inputCell: {
-    width: '90%',
     margin: '5px',
+    width: '93vw',
   },
   inputDesk: {
-    width: '50%',
     margin: '10px',
+    width: '93vw',
   },
   buttonBoxCell: {
     display: 'flex',
-    width: '80%',
     margin: '20px',
   },
   buttonBoxDesk: {

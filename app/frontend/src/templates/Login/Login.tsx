@@ -64,8 +64,8 @@ const Login: React.FC = (props) => {
     setLoginData({
       ...loginData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleClick = async () => {
     await validateError(loginData);
@@ -111,7 +111,7 @@ const Login: React.FC = (props) => {
             } }
           >
 
-            <h1 style={{ color: '#1ea7fd', fontSize: '35px', margin: '0' }}>Login</h1>
+            <h1 style={{ color: '#1ea7fd', fontSize: '30px', margin: '0' }}>Login</h1>
 
             <TextInput
               id="login-email"
@@ -119,7 +119,7 @@ const Login: React.FC = (props) => {
               name="email"
               value={ loginData.email }
               onChange={ handleChange }
-              style={{ width: '80%' }}
+              style={{ width: '100%' }}
               { ...handleErrorMessage('email', 'Insira o email') }
             />
 
@@ -131,7 +131,7 @@ const Login: React.FC = (props) => {
               type={ verifyInputType ? "password" : "text" }
               value={ loginData.password }
               onChange={ handleChange }
-              style={{ width: '80%' }}
+              style={{ width: '100%' }}
               { ...handleErrorMessage('password') }
             />
 
