@@ -1,5 +1,6 @@
 import * as express from 'express';
 import route from './api/routes/index';
+const favicon = require('express-favicon');
 
 const cors = require('cors');
 
@@ -9,6 +10,8 @@ class App {
   constructor() {
     this.app = express();
     this.app.use(cors());
+
+    this.app.use(favicon(__dirname + '/public/favicon.png'));
 
     this.config();
 
